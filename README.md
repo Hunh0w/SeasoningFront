@@ -105,6 +105,8 @@ erDiagram
         int genre
         text bio
         address address
+        blob profile_pic
+        text cv_link
     }
     EXPERIENCE {
         int experience_id
