@@ -1,45 +1,66 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import * as React from "react";
 
-import Button2 from './components/Button2';
-import Button from './components/Button';
-import ImageViewer from './components/ImageViewer';
+import { StyleSheet } from "react-native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const PlaceholderImage = require('./assets/images/test.jpg');
+import EmployersStackScreen from "./tabs/EmployersStackScreen";
+import HomeStackScreen from "./tabs/HomeStackScreen";
+import MessagesStackScreen from "./tabs/MessagesStackScreen";
+
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <ImageViewer placeholderImageSource={PlaceholderImage} />
-      </View>
-      <View style={styles.footerContainer}>
-        <Button label="Choose a photo" />
-        <Button label="Use this photo" />
-        <Button2 />
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Home"
+        activeColor="#f0edf6"
+        inactiveColor="#3e2465"
+        barStyle={{ backgroundColor: "#ffff" }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Employeurs"
+          component={EmployersStackScreen}
+          options={{
+            tabBarLabel: "Employeurs",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="account-group"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Messages"
+          component={MessagesStackScreen}
+          options={{
+            tabBarLabel: "Messages",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="android-messages"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-  },
-  imageContainer: {
-    flex: 1,
-    paddingTop: 58,
-  },
-  image: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
-  },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: 'center',
-  },
-});
+const styles = StyleSheet.create({});
