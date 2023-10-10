@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import MainMenu from './MainMenu';
 
 export default function MessagesScreen() {
   return (
