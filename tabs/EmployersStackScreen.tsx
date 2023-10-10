@@ -7,7 +7,7 @@ const EmployersStack = createNativeStackNavigator();
 export default function EmployersStackScreen() {
   return (
     <EmployersStack.Navigator>
-      <EmployersStack.Screen name="Employers" component={EmployersScreen} />
+      <EmployersStack.Screen name="Employeurs" component={EmployersScreen} />
       {/* For employer profile details/overview <EmployersStack.Screen name="EmployersProfile" component={EmployerProfileScreen} /> */}
     </EmployersStack.Navigator>
   );
