@@ -15,16 +15,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Offers"
         activeColor="#291efc"
         inactiveColor="#3e2465"
         barStyle={{ backgroundColor: "#ffff" }}
       >
         <Tab.Screen
-          name="Home"
+          name="Offers"
           component={HomeStackScreen}
           options={{
-            tabBarLabel: "Home",
+            tabBarLabel: "Offres",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="home" color={color} size={26} />
             ),
