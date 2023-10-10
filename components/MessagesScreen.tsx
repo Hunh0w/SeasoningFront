@@ -13,33 +13,32 @@ interface MessageElement {
 
 export default function MessagesScreen() {
 
-  const [messages, setMessages] = useState<MessageElement[]>([]);
+  const [messages, setMessages] = useState<MessageElement[]>([
+    {
+      id: 1,
+      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpjcA38sOFBO_IO7plyYbBF6zuzuQmKVMt8A&usqp=CAU",
+      name: "John Cena",
+      lastMessage: "C'est quand que jte pete la gueule ?"
+    },
+    {
+      id: 2,
+      avatar: "https://i.guim.co.uk/img/media/5ed54edd5d9d620487c523150e4672e3df43e442/0_197_3000_1800/master/3000.jpg?width=445&dpr=1&s=none",
+      name: "Donald Trump",
+      lastMessage: "Vote for me pls otherwise your house will be destroyed"
+    }
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const msgs: MessageElement[] = [];
-    for(let i = 0; i < 31; i++){
-      msgs.push({
-        id: i,
-        avatar: "https://static-00.iconduck.com/assets.00/user-avatar-icon-512x512-vufpcmdn.png",
-        name: "John Cena "+(i+1),
-        lastMessage: "C'est quand que jte pete la gueule ?"
-      })
-    }
-    setMessages(msgs);
+    //TODO API Call to retrieve initial data
+
     setLoading(false);
   }, []);
 
-  const hideElement = (element: MessageElement) => {
-    setLoading(true);
-    //TODO API Call
-
-    const elements = messages.filter((obj) => obj.id != element.id);
-
+  const deleteElement = (element: MessageElement) => {
+    //TODO API Call to remove employer
     
-    setMessages(elements);
-    setLoading(false);
-   
+    setMessages(messages.filter((obj) => obj.id != element.id));
   }
 
   return (<>
@@ -48,14 +47,12 @@ export default function MessagesScreen() {
       <GestureHandlerRootView>
         <ScrollView>
           {messages.map((element,i) => {
-            return <Drawer key={i} leftItem={{text: 'Hide', background: Colors.red30, onPress: () => hideElement(element)}}
-
-            >
+            return <Drawer key={i} leftItem={{text: 'Delete', background: Colors.red30, onPress: () => deleteElement(element)}}>
               <View bg-white style={{ height: 80, display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <Image width={50} height={50} style={{marginHorizontal: 10}} source={{uri: element.avatar}} />
                 <View style={{display: "flex", justifyContent: "center"}}>
                   <Text style={{fontWeight: "bold"}}>{element.name}</Text>
-                  <Text>{element.lastMessage}</Text>
+                  <Text style={{width: 260}}>{element.lastMessage}</Text>
                 </View>
               </View>
             </Drawer>
