@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Image, Drawer, View, Text, LoaderScreen } from 'react-native-ui-lib';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Avatar } from 'react-native-paper';
 
 interface MessageElement {
   id: number,
@@ -49,7 +50,10 @@ export default function MessagesScreen() {
           {messages.map((element,i) => {
             return <Drawer key={i} leftItem={{text: 'Delete', background: Colors.red30, onPress: () => deleteElement(element)}}>
               <View bg-white style={{ height: 80, display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <Image width={50} height={50} style={{marginHorizontal: 10}} source={{uri: element.avatar}} />
+                <View style={{marginHorizontal: 10}}>
+                  <Avatar.Image size={50} source={{uri: element.avatar}} />
+                </View>
+                
                 <View style={{display: "flex", justifyContent: "center"}}>
                   <Text style={{fontWeight: "bold"}}>{element.name}</Text>
                   <Text style={{width: 260}}>{element.lastMessage}</Text>
