@@ -1,12 +1,132 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useEffect } from "react";
+import { StyleSheet, ScrollView, Linking } from "react-native";
+import { useState } from "react";
+import { Avatar, Divider } from "react-native-paper";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  View,
+  Text,
+  Drawer,
+  LoaderScreen,
+} from "react-native-ui-lib";
 
-export default function EmployersScreen() {
+// TEMPORARY (fetch json for employers)
+import data from "../employers.json";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+interface Employer {
+  id: number;
+  name: string;
+  surname: string;
+  avatar: string;
+  company: string;
+  email: string;
+}
+
+type Props = {
+  employer: Employer;
+};
+
+export function Employer({ employer }: Props) {
+  // const deleteElement = (element: Employer) => {
+  //   //TODO API Call to remove employer
+  //   //setMessages(messages.filter((obj) => obj.id != element.id));
+  // };
+
+  const sendMessage = (employer: Number) => {
+    // TODO : API Call to open a new conversation between U and employer
+    // TODO : redirect to messages tab
+  };
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Employers</Text>
-    </View>
+    <>
+      <Drawer
+      // leftItem={{
+      //   text: "Delete",
+      //   background: Colors.red30,
+      //   //onPress: () => deleteElement(element),
+      // }}
+      >
+        <View
+          bg-white
+          style={{
+            height: 80,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <View style={{ marginHorizontal: 10 }}>
+            <Avatar.Image size={50} source={{ uri: employer.avatar }} />
+          </View>
+
+          <View style={{ display: "flex", justifyContent: "center" }}>
+            <Text style={{ fontWeight: "bold" }}>
+              {employer.surname} {employer.name}
+            </Text>
+            <Text style={{ width: 180 }}>{employer.company}</Text>
+          </View>
+          <View style={{ display: "flex", justifyContent: "center" }}>
+            <MaterialCommunityIcons
+              onPress={() => {
+                sendMessage(employer.id);
+              }}
+              name="message-arrow-right"
+              color="#291efc"
+              size={26}
+            />
+          </View>
+          <View style={{ display: "flex", justifyContent: "center", padding: 20 }}>
+            <MaterialCommunityIcons
+              onPress={() => {
+                Linking.openURL("mailto:" + employer.email);
+              }}
+              name="mail"
+              color="#291efc"
+              size={32}
+            />
+          </View>
+        </View>
+        <Divider />
+      </Drawer>
+    </>
   );
 }
 
+export default function EmployersScreen() {
+  const [employers, setEmployers] = useState(data);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // TODO : API Call to retrieve employers from json file
+    /* 
+    Employer example : 
+    {
+      'id': 1,
+      'name':'Rambo',
+      'surname':'John',
+      'avatar':'/pics/ed34hn9jds.png'
+      'company':'Atos',
+      'email': 'john.rambo@gmail.com',
+    } 
+  */
+
+    setLoading(false);
+  }, []);
+
+  return (
+    <>
+      {loading && <LoaderScreen message="Loading..." overlay />}
+      {!loading && (
+        <GestureHandlerRootView>
+          <ScrollView>
+            {employers.map((employer, index) => (
+              <Employer key={index} employer={employer} />
+            ))}
+          </ScrollView>
+        </GestureHandlerRootView>
+      )}
+    </>
+  );
+}
 const styles = StyleSheet.create({});
