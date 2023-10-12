@@ -2,13 +2,13 @@ import * as React from 'react'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from '../components/HomeScreen';
 
-const SettingsStack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator();
 
-export default function SettingsStackScreen() {
+export default function HomeStackScreen() {
   return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Offres" component={HomeScreen} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Offres" component={HomeScreen} />
       {/* Offers details for later : <SettingsStack.Screen name="Details" component={DetailsScreen} /> */}
-    </SettingsStack.Navigator>
+    </HomeStack.Navigator>
   );
 }

@@ -21,7 +21,7 @@ export default function App() {
         barStyle={{ backgroundColor: "#ffff" }}
       >
         <Tab.Screen
-          name="Offers"
+          name="HomeTab"
           component={HomeStackScreen}
           options={{
             tabBarLabel: "Offres",
@@ -31,7 +31,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Employeurs"
+          name="EmployersTab"
           component={EmployersStackScreen}
           options={{
             tabBarLabel: "Employeurs",
@@ -45,7 +45,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Messages"
+          name="MessagesTab"
           component={MessagesStackScreen}
           options={{
             tabBarLabel: "Messages",
