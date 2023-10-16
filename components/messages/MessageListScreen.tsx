@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Image, Drawer, View, Text, LoaderScreen } from 'react-native-ui-lib';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { ScrollView, StyleSheet, View} from 'react-native';
+import { Drawer, Text, LoaderScreen } from 'react-native-ui-lib';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Avatar } from 'react-native-paper';
 
-interface MessageElement {
+interface ContactElement {
   id: number,
   avatar: string,
   name: string,
   lastMessage: string
 }
 
-export default function MessagesScreen() {
+export default function MessageListScreen(props: any) {
 
-  const [messages, setMessages] = useState<MessageElement[]>([
+  const [messages, setMessages] = useState<ContactElement[]>([
     {
       id: 1,
       avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpjcA38sOFBO_IO7plyYbBF6zuzuQmKVMt8A&usqp=CAU",
@@ -30,26 +30,39 @@ export default function MessagesScreen() {
   ]);
   const [loading, setLoading] = useState(true);
 
+  const [ dragging, setDragging ] = useState(false);
+
+  const { navigation, route, options, back } = props;
+
   useEffect(() => {
     //TODO API Call to retrieve initial data
 
     setLoading(false);
   }, []);
 
-  const deleteElement = (element: MessageElement) => {
+  const deleteElement = (element: ContactElement) => {
     //TODO API Call to remove employer
     
     setMessages(messages.filter((obj) => obj.id != element.id));
   }
 
-  return (<>
-    {loading && <LoaderScreen message='Loading...' overlay/>}
-    {!loading &&
+  const onTouchOn = (element: ContactElement) => {
+    if(!dragging)
+      navigation.navigate("Messages", { contact: { id: element.id, name: element.name, avatar: element.avatar }});
+  }
+
+  if(loading)
+    return <LoaderScreen message='Loading...' overlay/>
+
+  return (
       <GestureHandlerRootView>
         <ScrollView>
           {messages.map((element,i) => {
-            return <Drawer key={i} leftItem={{text: 'Delete', background: Colors.red30, onPress: () => deleteElement(element)}}>
-              <View bg-white style={{ height: 80, display: "flex", flexDirection: "row", alignItems: "center"}}>
+            return <Drawer onDragStart={() => setDragging(true)} onSwipeableWillClose={() => setDragging(false)} key={i} leftItem={{text: 'Delete', background: Colors.red30, onPress: () => deleteElement(element)}}>
+              <View 
+                onTouchEnd={() => onTouchOn(element)}
+                
+                style={{backgroundColor: "white", height: 80, display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <View style={{marginHorizontal: 10}}>
                   <Avatar.Image size={50} source={{uri: element.avatar}} />
                 </View>
@@ -63,8 +76,6 @@ export default function MessagesScreen() {
           })}
         </ScrollView>
       </GestureHandlerRootView>
-    }
-    </>
   );
 }
 
