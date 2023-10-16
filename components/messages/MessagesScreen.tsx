@@ -62,7 +62,7 @@ export default function MessagesScreen(props: Props) {
     const scrollToEnd = () => {
         if(scrollViewRef.current){
             const element: any = scrollViewRef.current;
-            console.log(element)
+            //TODO
         }
     }
 
