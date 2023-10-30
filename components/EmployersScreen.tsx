@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, Linking } from "react-native";
-import { useState } from "react";
+
 import { Avatar, Divider } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import {
-  View,
-  Text,
-  Drawer,
-  LoaderScreen,
-} from "react-native-ui-lib";
+import { View, Text, Drawer, LoaderScreen } from "react-native-ui-lib";
 
 // TEMPORARY (fetch json for employers)
 import data from "../employers.json";
@@ -28,11 +23,6 @@ type Props = {
 };
 
 export function Employer({ employer }: Props) {
-  // const deleteElement = (element: Employer) => {
-  //   //TODO API Call to remove employer
-  //   //setMessages(messages.filter((obj) => obj.id != element.id));
-  // };
-
   const sendMessage = (employer: Number) => {
     // TODO : API Call to open a new conversation between U and employer
     // TODO : redirect to messages tab
@@ -40,13 +30,7 @@ export function Employer({ employer }: Props) {
 
   return (
     <>
-      <Drawer
-      // leftItem={{
-      //   text: "Delete",
-      //   background: Colors.red30,
-      //   //onPress: () => deleteElement(element),
-      // }}
-      >
+      <Drawer>
         <View
           bg-white
           style={{
@@ -76,7 +60,9 @@ export function Employer({ employer }: Props) {
               size={26}
             />
           </View>
-          <View style={{ display: "flex", justifyContent: "center", padding: 20 }}>
+          <View
+            style={{ display: "flex", justifyContent: "center", padding: 20 }}
+          >
             <MaterialCommunityIcons
               onPress={() => {
                 Linking.openURL("mailto:" + employer.email);
@@ -99,18 +85,6 @@ export default function EmployersScreen() {
 
   useEffect(() => {
     // TODO : API Call to retrieve employers from json file
-    /* 
-    Employer example : 
-    {
-      'id': 1,
-      'name':'Rambo',
-      'surname':'John',
-      'avatar':'/pics/ed34hn9jds.png'
-      'company':'Atos',
-      'email': 'john.rambo@gmail.com',
-    } 
-  */
-
     setLoading(false);
   }, []);
 
@@ -129,4 +103,5 @@ export default function EmployersScreen() {
     </>
   );
 }
+
 const styles = StyleSheet.create({});
