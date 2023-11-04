@@ -1,9 +1,19 @@
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { TextInput, Button, Text } from "react-native-paper";
 
 // Import store reducer and exported type
 import { useDispatch, useSelector } from "react-redux";
 import { setUserConnected } from "../store/user";
 import { RootState } from "../store/store";
+
+// Formik login validation schema
+import { Formik } from "formik";
+import { loginValidationScheme } from "./misc/validators";
+
+interface Profile {
+  email: string;
+  password: string;
+}
 
 // SignIn screen (email & password asked)
 export default function SignInScreen() {
@@ -12,14 +22,66 @@ export default function SignInScreen() {
   // Retrieve user state from store
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSignIn = () => {
-    dispatch(setUserConnected(true));
+  const handleLogin = (values: Profile) => {
+    try {
+      // TODO : Call API to connect user
+      dispatch(setUserConnected(true));
+    } catch (error) {
+      console.error(values)
+    }
   };
 
   return (
     <View style={styles.signinPage}>
-      {/* TODO : Add form (email & password) */}
-      <Button title="Sign In" onPress={handleSignIn}></Button>
+      <Text style={styles.text} variant="titleLarge">
+        Sign In
+      </Text>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => handleLogin(values)}
+        validationSchema={loginValidationScheme}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+          touched,
+        }) => (
+          <>
+            <TextInput
+              label="Email"
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
+              value={values.email}
+              keyboardType="email-address"
+            />
+            {errors.email && touched.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+            <TextInput
+              label="Password"
+              onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
+              value={values.password}
+              secureTextEntry
+            />
+            {errors.password && touched.password && (
+              <Text style={styles.error}>{errors.password}</Text>
+            )}
+            <Button
+              style={styles.signinButton}
+              mode="contained"
+              onPress={handleSubmit}
+              disabled={!isValid}
+            >
+              Login
+            </Button>
+          </>
+        )}
+      </Formik>
     </View>
   );
 }
@@ -27,8 +89,17 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
   signinPage: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
-    padding: 10,
+    padding: 30,
+  },
+  signinButton: {
+    marginTop: 50,
+  },
+  text: {
+    marginBottom: 20,
+  },
+  error: {
+    color: "red",
+    alignSelf: "center",
   },
 });
