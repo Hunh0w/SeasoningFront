@@ -15,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Offers"
+        initialRouteName="offersTab"
         activeColor="#291efc"
         inactiveColor="#3e2465"
         barStyle={{ backgroundColor: "#ffff" }}

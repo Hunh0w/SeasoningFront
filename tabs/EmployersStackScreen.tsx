@@ -15,6 +15,7 @@ export default function EmployersStackScreen() {
         component={EmployersScreen}
       />
       {/* For employer profile details/overview <EmployersStack.Screen name="EmployersProfile" component={EmployerProfileScreen} /> */}
+      
     </EmployersStack.Navigator>
   );
 }
