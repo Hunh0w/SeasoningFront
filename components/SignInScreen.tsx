@@ -10,12 +10,9 @@ import { RootState } from "../store/store";
 import { Formik } from "formik";
 import { loginValidationScheme } from "./misc/validators";
 
-interface Profile {
-  email: string;
-  password: string;
-}
+import { Profile } from "./misc/interfaces";
 
-// SignIn screen (email & password asked)
+// SignIn screen (email & password)
 export default function SignInScreen() {
   const dispatch = useDispatch();
 
@@ -27,7 +24,7 @@ export default function SignInScreen() {
       // TODO : Call API to connect user
       dispatch(setUserConnected(true));
     } catch (error) {
-      console.error(values)
+      console.error(values);
     }
   };
 
@@ -66,7 +63,8 @@ export default function SignInScreen() {
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
               value={values.password}
-              secureTextEntry
+              keyboardType="default"
+              secureTextEntry={true}
             />
             {errors.password && touched.password && (
               <Text style={styles.error}>{errors.password}</Text>
