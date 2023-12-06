@@ -53,33 +53,33 @@ export default function OffersScreen() {
 
     const offers: Offer[] = [
         {
-            poste: "Serveur",
+            poste: "Serveur 13ans d'exp.",
             category: "Restauration",
             startdate: new Date(),
             company: "KFC"
         },
         {
-            poste: "Serveur",
-            category: "Restauration",
+            poste: "Voleur sac à main",
+            category: "Sport",
             startdate: new Date(),
             enddate: new Date(),
-            company: "KFC"
+            company: "Marseille"
         },
         {
-            poste: "Super Serveur de la mort qui tue",
-            category: "Restauration",
-            company: "KFC"
+            poste: "Vendeur d'abeilles",
+            category: "Animalerie",
+            company: "Jean-Etienne"
         },
         {
-            poste: "Serveur",
-            category: "Restauration",
+            poste: "Acteur X",
+            category: "Divers",
             enddate: new Date(),
-            company: "KFC"
+            company: "Twitter"
         },
         {
-            poste: "Serveur",
-            category: "Restauration",
-            company: "KFC"
+            poste: "Prof de Maths 7j d'exp.",
+            category: "Enseignement",
+            company: "UMontpellier"
         }
     ]
 
@@ -128,8 +128,9 @@ export default function OffersScreen() {
                 <View style={{display: "flex", alignItems: "center", marginBottom: 50}}>
                     <View style={{display: "flex", flexDirection: "row", justifyContent: "center", flexWrap: "wrap"}}>
                         {offers.map((offer,i) => {
-                            return <View onTouchStart={() => onTouchOffer(offer)} key={i} style={{borderColor: "black", margin: 3, borderWidth: 3, borderRadius: 10, padding: 10}}>
+                            return <View onTouchStart={() => onTouchOffer(offer)} key={i} style={{display: "flex", borderColor: "black", margin: 3, borderWidth: 3, borderRadius: 10, padding: 10}}>
                                 <Text style={{fontWeight: "bold", fontSize: 17}}>{offer.poste}</Text>
+                                <Text>{offer.category}</Text>
                                 {offer.startdate && offer.enddate &&
                                     <Text style={offerDateStyle}>du {dateToString(offer.startdate)} au {dateToString(offer.enddate)}</Text>
                                 }
@@ -139,8 +140,9 @@ export default function OffersScreen() {
                                 {!offer.startdate && offer.enddate &&
                                     <Text style={offerDateStyle}>termine le {dateToString(offer.enddate)}</Text>
                                 }
-                                <Text>{offer.category}</Text>
-                                <Text>Disponible chez: {offer.company}</Text>
+                                <Text>Disponible chez: <Text style={{fontWeight: "bold", color: "blue"}}>{offer.company}</Text></Text>
+                                <View style={{flexGrow: 1}} />
+                                <Button mode='text'>Postuler</Button>
                             </View>
                         })}
                     </View>
