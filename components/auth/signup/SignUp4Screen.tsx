@@ -5,7 +5,7 @@ import { useState } from "react";
 // Import document from library to app
 import * as DocumentPicker from "expo-document-picker";
 
-import { NavigationProps } from "../misc/interfaces";
+import { NavigationProps } from "../../misc/interfaces";
 
 // SignUp screen step 4 : CV upload
 export default function SignUpCVScreen({ route, navigation }: NavigationProps) {

@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { View, Text, Drawer, LoaderScreen } from "react-native-ui-lib";
 
 // TEMPORARY (fetch json for employers)
-import data from "../employers.json";
+import data from "../../employers.json";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface Employer {

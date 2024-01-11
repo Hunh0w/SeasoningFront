@@ -9,15 +9,15 @@ import {
 } from "react-native-paper";
 
 import { useState } from "react";
-import { genders } from "../misc/genre";
+import { genders } from "../../misc/genre";
 import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
 
-import { NavigationProps, Register2 } from "../misc/interfaces";
+import { NavigationProps, Register2 } from "../../misc/interfaces";
 import { Formik } from "formik";
-import { register2ValidationScheme } from "../misc/validators";
+import { register2ValidationScheme } from "../../misc/validators";
 
 // SignUp screen step 2 : name, surname, birth date & genre
 export default function SignUpYourselfScreen({

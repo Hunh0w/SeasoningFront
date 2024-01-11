@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
 import { TextInput, Button, Text } from "react-native-paper";
 
-import { NavigationProps, Register3 } from "../misc/interfaces";
-import { register3ValidationScheme } from "../misc/validators";
+import { NavigationProps, Register3 } from "../../misc/interfaces";
+import { register3ValidationScheme } from "../../misc/validators";
 import { Formik } from "formik";
 
 // SignUp screen step 3 : phone number, address (& city + country)

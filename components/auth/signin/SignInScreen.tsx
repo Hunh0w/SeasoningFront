@@ -3,14 +3,14 @@ import { TextInput, Button, Text } from "react-native-paper";
 
 // Import store reducer and exported type
 import { useDispatch, useSelector } from "react-redux";
-import { setUserConnected } from "../store/user";
-import { RootState } from "../store/store";
+import { setUserConnected } from "../../../store/user";
+import { RootState } from "../../../store/store";
 
 // Formik login validation schema
 import { Formik } from "formik";
-import { loginValidationScheme } from "./misc/validators";
+import { loginValidationScheme } from "../../misc/validators";
 
-import { Profile } from "./misc/interfaces";
+import { Profile } from "../../misc/interfaces";
 
 // SignIn screen (email & password)
 export default function SignInScreen() {

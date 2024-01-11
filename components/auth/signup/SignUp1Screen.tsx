@@ -3,10 +3,10 @@ import { Button, Modal, Portal, Text, TextInput } from "react-native-paper";
 
 // Input validation
 import { Formik } from "formik";
-import { register1ValidationScheme } from "../misc/validators";
+import { register1ValidationScheme } from "../../misc/validators";
 
 // Import interfaces
-import { NavigationProps, Register1 } from "../misc/interfaces";
+import { NavigationProps, Register1 } from "../../misc/interfaces";
 import { useState } from "react";
 import {
   GestureHandlerRootView,

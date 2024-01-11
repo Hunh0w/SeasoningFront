@@ -1,8 +1,8 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../HomeScreen";
-import NotificationMenuButton from "../NotificationMenuButton";
-import ProfileMenuButton from "../ProfileMenuButton";
+import HomeScreen from "../offers/HomeScreen";
+import NotificationMenuButton from "./NotificationMenuButton";
+import ProfileMenuButton from "./ProfileMenuButton";
 
 const HomeStack = createNativeStackNavigator();
 

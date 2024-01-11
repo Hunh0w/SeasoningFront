@@ -4,10 +4,10 @@ import { TextInput, Button, Text, Avatar } from "react-native-paper";
 // Import store features
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { setUserConnected } from "../../store/user";
+import { RootState } from "../../../store/store";
+import { setUserConnected } from "../../../store/user";
 
-import { NavigationProps } from "../misc/interfaces";
+import { NavigationProps } from "../../misc/interfaces";
 
 // Import document from library to app
 import * as DocumentPicker from "expo-document-picker";
