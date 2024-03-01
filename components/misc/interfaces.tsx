@@ -1,11 +1,15 @@
 export interface Profile {
   email: string;
-  password: string;
-  confirmPassword: string;
   name: string;
   surname: string;
-  birth: string;
-  genre: string;
+  dateOfBirth: string;
+  gender: string;
+  phone: string;
+  address: string;
+  description: string;
+  experiences: Experience[];
+  availabilities: Availability[];
+  references: Reference[];
 }
 
 export interface Register1 {
@@ -31,4 +35,24 @@ export interface Register3 {
 export interface NavigationProps {
   navigation: any;
   route: any;
+}
+
+export interface Reference {
+  name: string;
+  position: string;
+  email: string;
+  phone: string;
+}
+
+export interface Availability {
+  fromDate: string;
+  toDate: string;
+}
+
+export interface Experience {
+  position: string;
+  company: string;
+  startDate: string;
+  endDate: string;
+  descriptions: string;
 }
