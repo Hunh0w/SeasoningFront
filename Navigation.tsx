@@ -14,8 +14,10 @@ import EmployersStackScreen from "./components/tabs/EmployersStackScreen";
 import HomeStackScreen from "./components/tabs/HomeStackScreen";
 import MessagesStackScreen from "./components/tabs/MessagesStackScreen";
 import LandingScreen from "./components/LandingScreen";
-import SigninScreen from "./components/SignInScreen";
 import SignupStackScreen from "./components/tabs/SignupStackScreen";
+import ProfileScreen from "./components/profile/ProfileScreen";
+import NotificationMenuButton from "./components/tabs/NotificationMenuButton";
+import ProfileMenuButton from "./components/tabs/ProfileMenuButton";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,7 +31,6 @@ function AuthNavigator() {
       }}
     >
       <Stack.Screen name="Landing" component={LandingScreen} />
-      <Stack.Screen name="Signin" component={SigninScreen} />
       <Stack.Screen name="Signup" component={SignupStackScreen} />
     </Stack.Navigator>
   );
