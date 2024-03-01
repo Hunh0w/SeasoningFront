@@ -2,21 +2,25 @@
 import {
   AuthRequest,
   DiscoveryDocument,
+  Prompt,
   ResponseType,
   exchangeCodeAsync,
   makeRedirectUri,
+  revokeAsync,
 } from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
-import { storeToken } from "./storeToken";
+import { SSOToken, storeToken } from "./storeToken";
 import AppConfig from "../app.json";
+import uuid from "react-native-uuid";
 
 WebBrowser.maybeCompleteAuthSession();
-
 export async function handleLogin(discovery: DiscoveryDocument) {
   const clientId = "seasoning-client";
   const redirectUri = makeRedirectUri({
     scheme: AppConfig.expo.scheme,
+    path: "/",
   });
+  
   // Retrieve user state from store
   // const user = useSelector((state: RootState) => state.user);
   if (!discovery) return;
@@ -25,7 +29,9 @@ export async function handleLogin(discovery: DiscoveryDocument) {
     responseType: ResponseType.Code,
     clientId,
     redirectUri,
+    prompt: Prompt.Login,
     scopes: ["openid", "profile"],
+    state: uuid.v4().toString(),
   });
 
   const authSessionResult = await authRequest.promptAsync(discovery);
@@ -43,15 +49,24 @@ export async function handleLogin(discovery: DiscoveryDocument) {
       },
       discovery
     );
-    if (!tokenResponse.idToken) return;
+    if (!tokenResponse.idToken || !tokenResponse.refreshToken) return;
     const { setToken } = storeToken();
     await setToken({
       accessToken: tokenResponse.accessToken,
       idToken: tokenResponse.idToken,
-      refreshToken: tokenResponse.refreshToken,
+      refreshToken: tokenResponse.refreshToken || "",
     });
-    // Only for tests purposes, needs to be verified by spring security
-    // Autorization
-    return 200;
+    return tokenResponse;
   }
+}
+
+export async function handleLogout(
+  discovery: DiscoveryDocument,
+  token: SSOToken
+) {
+  const { removeToken } = storeToken();
+  await Promise.all([
+    await revokeAsync({ token: token.accessToken }, discovery),
+    await removeToken(),
+  ]);
 }
