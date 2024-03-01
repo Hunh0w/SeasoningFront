@@ -4,6 +4,7 @@ import { Avatar, Text, Button } from "react-native-paper";
 import { handleLogin } from "../auth/sso";
 import { useDispatch } from "react-redux";
 import { setUserConnected } from "../store/user";
+import axios from "axios";
 
 // Landing screen (1st screen of the app)
 export default function LandingScreen({ navigation }: { navigation: any }) {
@@ -16,17 +17,19 @@ export default function LandingScreen({ navigation }: { navigation: any }) {
   const login = async () => {
     if (discovery) {
       const response = await handleLogin(discovery);
-      if (response === 200) {
-        dispatch(setUserConnected(true));
-      }
-    }
-  };
-
-  const signup = async () => {
-    if (discovery) {
-      const response = await handleLogin(discovery);
-      if (response === 200) {
-        dispatch(setUserConnected(true));
+      if (response) {
+        const profile = axios
+          .get(`$BASE_URL/profile/me`)
+          .then((response) => {
+            console.log(response.data);
+          });
+        // if not profile in db => redirect to signup
+        if (!profile) {
+          navigation.navigate('Signup');
+        } else {
+          // If profile in db, set user connected to true
+          dispatch(setUserConnected(true));
+        }
       }
     }
   };
@@ -43,10 +46,7 @@ export default function LandingScreen({ navigation }: { navigation: any }) {
       <Text variant="displaySmall">Seasoning</Text>
       <View style={styles.buttons}>
         <Button style={styles.button} mode="contained" onPress={login}>
-          Login
-        </Button>
-        <Button style={styles.button} mode="contained" onPress={signup}>
-          Register
+          Getting started
         </Button>
       </View>
     </View>
