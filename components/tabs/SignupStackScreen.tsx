@@ -10,8 +10,7 @@ const SignupStack = createNativeStackNavigator();
 
 export default function SignupStackScreen() {
   return(
-    <SignupStack.Navigator initialRouteName='Signup_step1'>
-      <SignupStack.Screen name="Signup_step1" component={SignUpScreen} />
+    <SignupStack.Navigator initialRouteName='Signup_step2'>
       <SignupStack.Screen name="Signup_step2" component={SignUpYourselfScreen} />
       <SignupStack.Screen name="Signup_step3" component={SignUpPersonalScreen} />
       <SignupStack.Screen name="Signup_step4" component={SignUpCVScreen} />
