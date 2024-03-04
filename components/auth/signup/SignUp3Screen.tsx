@@ -87,7 +87,7 @@ export default function SignUpPersonalScreen({
               style={styles.signupButton}
               mode="contained"
               onPress={handleSubmit}
-              disabled={!isValid}
+              disabled={false}
             >
               Next
             </Button>

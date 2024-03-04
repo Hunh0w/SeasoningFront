@@ -11,6 +11,7 @@ import { NavigationProps } from "../../misc/interfaces";
 
 // Import document from library to app
 import * as DocumentPicker from "expo-document-picker";
+import axiosInstance from "../../misc/api";
 
 // SignUp screen step 5 : profile picture and presentation sentences (input)
 export default function SignUpProfileScreen({
@@ -32,13 +33,13 @@ export default function SignUpProfileScreen({
     setProfilePic({ singleFile: res });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     //- Check if any file is selected or not
     if (profilePic.singleFile != null) {
       // If file selected then create FormData
       const fileToUpload = profilePic.singleFile;
       const data = new FormData();
-      data.append("name", "CV Uploaded");
+      data.append("name", "Profile picture");
       data.append("file_attachment", fileToUpload);
       // let res = await fetch("TODO : add correct api call", {
       //   method: "post",
@@ -49,15 +50,24 @@ export default function SignUpProfileScreen({
       // });
       // let responseJson = await res.json();
       // if (responseJson.status == 1) {
-      if (1 == 1) {
-        // DELETE THIS AFTER UNCOMMENT
-        // TODO : API call to register new user
-        // route.params
-        dispatch(setUserConnected(true));
+      if (true) {
+        try {
+          await axiosInstance
+            .post("/profile", { ...route.params })
+            .then((profileData) => {
+              console.log("User profile:", profileData);
+              dispatch(setUserConnected(true));
+            })
+            .catch((error) => {
+              console.error("Error fetching user profile:", error);
+            });
+        } catch (error) {
+          console.error("Error creating profile:", error);
+        }
+      } else {
+        //if no file selected the show alert
+        alert("Please Select File first");
       }
-    } else {
-      //if no file selected the show alert
-      alert("Please Select File first");
     }
   };
 
@@ -66,13 +76,13 @@ export default function SignUpProfileScreen({
       <Text style={styles.text} variant="titleLarge">
         Your profile
       </Text>
-      <Avatar.Image source={profilePic.url || null}></Avatar.Image>
+      <Avatar.Image source={profilePic?.url || "https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=826&t=st=1709528450~exp=1709529050~hmac=e5284a21373ca72eafb0553b8542ddd874649e8df9b5da458d1000ec54c21d91"}></Avatar.Image>
       <Button
         style={styles.signupButton}
         mode="contained"
         onPress={handleUploadPic}
       >
-        Create account
+        Upload photo
       </Button>
       <TextInput
         contentStyle={{ textAlign: "left", textAlignVertical: "top" }}
@@ -92,7 +102,6 @@ export default function SignUpProfileScreen({
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   signupPage: {
     flex: 1,

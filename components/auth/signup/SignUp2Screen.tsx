@@ -36,8 +36,6 @@ export default function SignUpYourselfScreen({
   const handleSignUp = (values: Register2) => {
     navigation.navigate("Signup_step3", {
       ...route.params,
-      name: values.name,
-      surname: values.surname,
       birth: values.birth,
       genre: values.genre,
     });
@@ -50,8 +48,6 @@ export default function SignUpYourselfScreen({
       </Text>
       <Formik
         initialValues={{
-          name: "",
-          surname: "",
           birth: "",
           genre: "",
         }}
@@ -68,24 +64,6 @@ export default function SignUpYourselfScreen({
           touched,
         }) => (
           <>
-            <TextInput
-              label="Name *"
-              value={values.name}
-              onChangeText={handleChange("name")}
-              onBlur={handleBlur("name")}
-            />
-            {errors.name && touched.name && (
-              <Text style={styles.error}>{errors.name}</Text>
-            )}
-            <TextInput
-              label="Surname *"
-              value={values.surname}
-              onChangeText={handleChange("surname")}
-              onBlur={handleBlur("surname")}
-            />
-            {errors.surname && touched.surname && (
-              <Text style={styles.error}>{errors.surname}</Text>
-            )}
             <TextInput
               label="Birth date (JJMMAAAA) *"
               value={values.birth}
