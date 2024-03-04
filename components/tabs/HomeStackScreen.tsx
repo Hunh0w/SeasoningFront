@@ -1,10 +1,11 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../offers/HomeScreen";
-import NotificationMenuButton from "./NotificationMenuButton";
-import ProfileMenuButton from "./ProfileMenuButton";
+import NotificationMenuButton from "../notifications/NotificationMenuButton";
+import ProfileMenuButton from "../profile/ProfileMenuButton";
 import NotificationsScreen from "../notifications/NotificationsScreen";
 import ProfileStackScreen from "./ProfileStackScreen";
+import SearchScreen from "../offers/SearchScreen";
+import OffersScreen from "../offers/OffersScreen";
 
 const HomeStack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ export default function HomeStackScreen() {
     <HomeStack.Navigator>
       <HomeStack.Screen
         name="Offres"
-        component={HomeScreen}
+        component={OffersScreen}
         options={{
           headerRight: () => (
             <>
@@ -23,9 +24,9 @@ export default function HomeStackScreen() {
           ),
         }}
       />
+      <HomeStack.Screen name="SearchResults" component={SearchScreen} />
       <HomeStack.Screen name="Profile" component={ProfileStackScreen} />
       <HomeStack.Screen name="Notifications" component={NotificationsScreen} />
-      {/* Offers details for later : <SettingsStack.Screen name="Details" component={DetailsScreen} /> */}
     </HomeStack.Navigator>
   );
 }
