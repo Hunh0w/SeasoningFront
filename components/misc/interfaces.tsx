@@ -19,8 +19,6 @@ export interface Register1 {
 }
 
 export interface Register2 {
-  name: string;
-  surname: string;
   birth: string;
   genre: string;
 }

@@ -28,8 +28,6 @@ export function register1ValidationScheme() {
 
 export function register2ValidationScheme() {
   return Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    surname: Yup.string().required("Surname is required"),
     birth: Yup.date().required("Birth date required"),
     genre: Yup.string().oneOf(genders, "Genre doesn't match any")
   })
@@ -38,8 +36,8 @@ export function register2ValidationScheme() {
 export function register3ValidationScheme() {
   return Yup.object().shape({
     phone: Yup.number().required("Phone number is required"),
-    Address: Yup.string().required("Address is required"),
+    address: Yup.string().required("Address is required"),
     city: Yup.string().required("City is required"),
     country: Yup.string().required("Country is required"),
-  })
+  });
 }
