@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EmployersScreen from "../components/EmployersScreen";
+import EmployersScreen from '../employers/EmployersScreen';
 
 const EmployersStack = createNativeStackNavigator();
 
