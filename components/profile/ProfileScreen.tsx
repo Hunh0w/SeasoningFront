@@ -18,6 +18,7 @@ import {
 } from "../misc/interfaces";
 import ReferenceModal from "./references/ReferenceModal";
 import AvailabilityModal from "./availabilities/AvailabilityModal";
+import axiosInstance from "../misc/api";
 
 export default function ProfileScreen() {
   const [profile, setProfile] = useState({
@@ -59,8 +60,15 @@ export default function ProfileScreen() {
   });
 
   useEffect(async () => {
-    const profile = await axios.get("$BASE_URL/profile/me");
-    setProfile(profile);
+    const profile = axiosInstance
+      .get("/profile/me")
+      .then((response) => {
+        setProfile(response.data);
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
   const [refVisible, setRefVisible] = useState(false);

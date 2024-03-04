@@ -5,30 +5,36 @@ import { handleLogin } from "../auth/sso";
 import { useDispatch } from "react-redux";
 import { setUserConnected } from "../store/user";
 import axios from "axios";
+import { EXPO_PUBLIC_AUTH_URL, EXPO_PUBLIC_BASE_URL } from "./misc/env";
+import axiosInstance from "./misc/api";
 
 // Landing screen (1st screen of the app)
 export default function LandingScreen({ navigation }: { navigation: any }) {
-  // TODO : Change navigation type to correct one !
   const dispatch = useDispatch();
   const discovery = useAutoDiscovery(
-    "https://auth.araimbault.com/realms/seasoning"
+    `${EXPO_PUBLIC_AUTH_URL}/realms/seasoning`
   );
 
   const login = async () => {
     if (discovery) {
       const response = await handleLogin(discovery);
       if (response) {
-        const profile = axios
-          .get(`$BASE_URL/profile/me`)
-          .then((response) => {
-            console.log(response.data);
-          });
-        // if not profile in db => redirect to signup
-        if (!profile) {
-          navigation.navigate('Signup');
-        } else {
-          // If profile in db, set user connected to true
-          dispatch(setUserConnected(true));
+        try {
+          axiosInstance
+            .get(`/profile/me`)
+            .then((response) => {
+              if (response.status && response.data) {
+                // If profile in db, set user connected to true
+                dispatch(setUserConnected(true));
+              } else {
+                navigation.navigate("Signup");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        } catch (error) {
+          console.error("Error:", error);
         }
       }
     }
