@@ -10,15 +10,13 @@ import {
 } from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
 import { SSOToken, storeToken } from "./storeToken";
-import AppConfig from "../app.json";
 import uuid from "react-native-uuid";
 
 WebBrowser.maybeCompleteAuthSession();
 export async function handleLogin(discovery: DiscoveryDocument) {
   const clientId = "seasoning-client";
   const redirectUri = makeRedirectUri({
-    scheme: AppConfig.expo.scheme,
-    path: "/",
+    scheme: 'app',
   });
   
   // Retrieve user state from store
