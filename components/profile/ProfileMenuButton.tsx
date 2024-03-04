@@ -17,15 +17,16 @@ export default function ProfileMenuButton() {
   const openMenu = () => setProfileMenuVisible(true);
   const closeMenu = () => setProfileMenuVisible(false);
   const dispatch = useDispatch();
-  const discovery = useAutoDiscovery(
-    "https://auth.araimbault.com/realms/seasoning" ?? ""
-  );
+
+  const discovery =
+    useAutoDiscovery("https://auth.araimbault.com/realms/seasoning" ?? "") ||
+    "";
   const navigation = useNavigation();
 
   const handleProfileView = () => {
-    navigation.navigate("Profile")
-    closeMenu()
-  }
+    navigation.navigate("Profile");
+    closeMenu();
+  };
 
   const handleUserSignOut = async () => {
     const { getToken } = storeToken();
@@ -40,10 +41,7 @@ export default function ProfileMenuButton() {
       onDismiss={closeMenu}
       anchor={<IconButton icon="account" onPress={openMenu} />}
     >
-      <Menu.Item
-        onPress={handleProfileView}
-        title="My Profile"
-      />
+      <Menu.Item onPress={handleProfileView} title="My Profile" />
       <Divider />
       <Menu.Item onPress={handleUserSignOut} title="Sign out" />
     </Menu>
